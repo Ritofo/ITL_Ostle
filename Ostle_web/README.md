@@ -31,13 +31,19 @@ npm start
 4. `main` または `master` ブランチにプッシュすると自動でデプロイが開始されます
 5. デプロイ完了後、`https://[ユーザー名].github.io/[リポジトリ名]/` でアクセス可能
 
-**注意**: リポジトリ名がサブパスになる場合（例: `/Ostle_web`）、`.github/workflows/deploy.yml` の `BASE_PATH` 環境変数を設定してください：
+**重要**: 
+- リポジトリ名がサブパスになる場合（例: `username.github.io/Ostle_web`）:
+  - `.github/workflows/deploy.yml` の `BASE_PATH: /${{ steps.repo.outputs.name }}` が自動設定されます
+  - リポジトリ名が `Ostle_web` の場合、`BASE_PATH` は `/Ostle_web` になります
 
-```yaml
-BASE_PATH: '/Ostle_web'
-```
+- ルートドメイン（`username.github.io`）でホストする場合:
+  - `.github/workflows/deploy.yml` の `BASE_PATH: /${{ steps.repo.outputs.name }}` を `BASE_PATH: ''` に変更してください
 
-ルートドメイン（`[ユーザー名].github.io`）でホストする場合は `BASE_PATH: ''` のままにしてください。
+**404エラーが発生する場合**:
+1. リポジトリの Settings → Pages で Source が **GitHub Actions** になっているか確認
+2. Actions タブでデプロイが成功しているか確認
+3. `BASE_PATH` の設定が正しいか確認（リポジトリ名と一致しているか）
+4. ブラウザのキャッシュをクリアして再読み込み
 
 ### Vercel デプロイ
 
