@@ -6,10 +6,11 @@ const nextConfig = {
     unoptimized: true,
   },
   // GitHub Pages用: リポジトリ名がサブパスになる場合は basePath を設定
-  // 例: basePath: '/Ostle_web',
-  // ルートドメインでホストする場合は basePath をコメントアウト
-  basePath: process.env.NODE_ENV === 'production' && process.env.BASE_PATH ? process.env.BASE_PATH : '',
-  assetPrefix: process.env.NODE_ENV === 'production' && process.env.BASE_PATH ? process.env.BASE_PATH : '',
+  // 環境変数 BASE_PATH が設定されている場合はそれを使用
+  // ローカル開発時は空文字列（ルートパス）
+  basePath: process.env.BASE_PATH || '',
+  assetPrefix: process.env.BASE_PATH || '',
+  trailingSlash: true,
   experimental: {
     optimizePackageImports: [
     ]
